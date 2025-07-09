@@ -71,13 +71,13 @@ const Calender = () => {
             setMonth(0);
             nextYear();
         } else {
-            setMonth(prev => prev-1);
+            setMonth(prev => prev+1);
         }
     }
 
   return (
     <div>
-        <h1 id='heading'>Calender</h1>
+        <h1 id='heading'>Calendar</h1>
         <select id='month' value={month} onChange={handleMonthChange}>
             {months.map((month, idx) => (
                 <option key={idx} value={idx}>{month}</option>
