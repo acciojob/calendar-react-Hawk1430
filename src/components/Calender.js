@@ -75,7 +75,7 @@ const Calender = () => {
 
   return (
     <div>
-        <h1 id='calender-heading'>Calender</h1>
+        <h1 id='heading'>Calender</h1>
         <select id='month-select' value={month} onChange={handleMonthChange}>
             {months.map((month, idx) => (
                 <option key={idx} value={idx}>{month}</option>
@@ -83,10 +83,10 @@ const Calender = () => {
         </select>
 
         {!editingYear ? (
-            <span id='year-display' onDoubleClick={handleYearDoubleClick}>{year}</span>
+            <span id='year' onDoubleClick={handleYearDoubleClick}>{year}</span>
         ) : (
             <input 
-                id='year-input'
+                id='year-text-box'
                 type='number'
                 defaultValue={year}
                 onKeyDown={handleYearChange}
