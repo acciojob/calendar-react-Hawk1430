@@ -11,6 +11,8 @@ const Calender = () => {
     const [editingYear, setEditingYear] = useState(false);
     const [daysMatrix, setDaysMatrix] = useState([]);
 
+    console.log(month);
+
     const handleYearDoubleClick = () =>{
         setEditingYear(true);
     }
@@ -76,7 +78,7 @@ const Calender = () => {
   return (
     <div>
         <h1 id='heading'>Calender</h1>
-        <select id='month-select' value={month} onChange={handleMonthChange}>
+        <select id='month' value={month} onChange={handleMonthChange}>
             {months.map((month, idx) => (
                 <option key={idx} value={idx}>{month}</option>
             ))}
