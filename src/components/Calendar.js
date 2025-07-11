@@ -27,7 +27,8 @@ const Calendar = () => {
 	};
 
 	const handleMonthChange = (e) => {
-		setMonth(parseInt(e.target.value));
+		const index  = months.indexOf(e.target.value);
+		setMonth(index);
 	};
 
 	const handleYearChange = (e) => {
@@ -87,9 +88,9 @@ const Calendar = () => {
 	return (
 		<div>
 			<h1 id="heading">Calendar</h1>
-			<select id="month" value={month} onChange={handleMonthChange}>
+			<select id="month" value={months[month]} onChange={handleMonthChange}>
 				{months.map((month, idx) => (
-					<option key={idx} value={idx}>
+					<option key={month}>
 						{month}
 					</option>
 				))}
@@ -140,7 +141,7 @@ const Calendar = () => {
 				<button id="prev-year" onClick={prevYear}>
 					&lt;&lt;
 				</button>
-				<button id="prev-month" onClick={prevMonth}>
+				<button id="previous-month" onClick={prevMonth}>
 					&lt;
 				</button>
 				<button id="next-month" onClick={nextMonth}>
