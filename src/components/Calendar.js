@@ -21,7 +21,6 @@ const Calendar = () => {
 	const [editingYear, setEditingYear] = useState(false);
 	const [daysMatrix, setDaysMatrix] = useState([]);
 
-	console.log(month);
 
 	const handleYearDoubleClick = () => {
 		setEditingYear(true);
@@ -33,16 +32,16 @@ const Calendar = () => {
 
 	const handleYearChange = (e) => {
 		if (e.key === "Enter") {
-			setYear(e.target.value);
+			setYear(parseInt(e.target.value))
 			setEditingYear(false);
 		}
 	};
 
 	useEffect(() => {
-		setDaysMatrix(generateCalender(month, year));
+		setDaysMatrix(generateCalendar(month, year));
 	}, [month, year]);
 
-	function generateCalender(month, year) {
+	function generateCalendar(month, year) {
 		const firstDay = new Date(year, month, 1).getDay();
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
 		let matrix = [];
@@ -109,6 +108,10 @@ const Calendar = () => {
 					autoFocus
 				/>
 			)}
+
+			<div id="current-month" style={{ display: 'none' }}>
+				{months[month]}
+			</div>
 
 			<table id="calendar-table">
 				<thead>
