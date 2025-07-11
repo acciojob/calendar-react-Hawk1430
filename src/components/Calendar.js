@@ -87,7 +87,7 @@ const Calendar = () => {
 	return (
 		<div>
 			<h1 id="heading">Calendar</h1>
-			<select id="month" value={month} onChange={handleMonthChange}>
+			<select id="month" value={months[month]} onChange={handleMonthChange}>
 				{months.map((month, idx) => (
 					<option key={idx} value={idx}>
 						{month}
