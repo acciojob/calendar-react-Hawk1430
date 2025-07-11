@@ -141,7 +141,7 @@ const Calendar = () => {
             </table>
 
 			<div>
-				<button id="prev-year" onClick={prevYear}>
+				<button id="previous-year" onClick={prevYear}>
 					&lt;&lt;
 				</button>
 				<button id="previous-month" onClick={prevMonth}>
