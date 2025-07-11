@@ -19,7 +19,6 @@ const Calendar = () => {
 	const [month, setMonth] = useState(new Date().getMonth());
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [editingYear, setEditingYear] = useState(false);
-	const [daysMatrix, setDaysMatrix] = useState([]);
 
 	console.log(month);
 	const handleYearDoubleClick = () => {
@@ -38,31 +37,43 @@ const Calendar = () => {
 		}
 	};
 
-	useEffect(() => {
-		setDaysMatrix(generateCalendar(month, year));
-	}, [month, year]);
+	const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 
-	function generateCalendar(month, year) {
-		const firstDay = new Date(year, month, 1).getDay();
-		const daysInMonth = new Date(year, month + 1, 0).getDate();
-		let matrix = [];
-		let date = 1;
+	const createTableCells = (selectedMonth, selectedYear) => {
+        let cells = [];
+        const numberOfDays = daysInMonth(selectedMonth + 1, selectedYear);
+        const startingDay = new Date(selectedYear, selectedMonth).getDay();
+        let date = 1;
+        for (let i = 0; i < 6; i++) {
+            let row = [];
+            for (let j = 0; j < 7; j++) {
+                let cellId = `cell${i + j + 1}`;
 
-		for (let i = 0; i < 6; i++) {
-			let row = [];
-			for (let j = 0; j < 7; j++) {
-				if (i === 0 && j < firstDay) {
-					row.push(null);
-				} else if (date > daysInMonth) {
-					row.push(null);
-				} else {
-					row.push(date++);
-				}
-			}
-			matrix.push(row);
-		}
-		return matrix;
-	}
+                if (i === 0 && j < startingDay) {
+                    row.push(<td key={j} id={cellId}></td>);
+                } else if (date > numberOfDays) {
+                    row.push(<td key={j} id={cellId}></td>);
+                } else {
+                    let currentDate = new Date();
+                    if (
+                        selectedYear === currentDate.getFullYear() &&
+                        selectedMonth === currentDate.getMonth() &&
+                        date === currentDate.getDate()
+                    ) {
+                        cellId = "today";
+                    }
+                    row.push(
+                        <td key={j} id={cellId}>
+                            {date}
+                        </td>
+                    );
+                    date++;
+                }
+            }
+            cells.push(<tr key={i}>{row}</tr>);
+        }
+        return cells;
+    };
 
 	const prevYear = () => setYear((prev) => prev - 1);
 	const nextYear = () => setYear((prev) => prev + 1);
@@ -126,15 +137,7 @@ const Calendar = () => {
 						<th>Sat</th>
 					</tr>
 				</thead>
-				<tbody>
-					{daysMatrix.map((week, idx) => (
-						<tr key={idx}>
-							{week.map((day, i) => (
-								<td key={i}>{day || ""}</td>
-							))}
-						</tr>
-					))}
-				</tbody>
+				<tbody>{createTableCells(month, year)}</tbody>
 			</table>
 
 			<div>
