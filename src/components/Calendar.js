@@ -15,6 +15,8 @@ const months = [
 	"December",
 ];
 
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const Calendar = () => {
 	const [month, setMonth] = useState(new Date().getMonth());
 	const [year, setYear] = useState(new Date().getFullYear());
@@ -125,20 +127,18 @@ const Calendar = () => {
 				{months[month]}
 			</div>
 
-			<table id="calendar-table">
-				<thead>
-					<tr>
-						<th>Sun</th>
-						<th>Mon</th>
-						<th>Tue</th>
-						<th>Wed</th>
-						<th>Thu</th>
-						<th>Fri</th>
-						<th>Sat</th>
-					</tr>
-				</thead>
-				<tbody>{createTableCells(month, year)}</tbody>
-			</table>
+			<table>
+                <thead>
+                    <tr>
+                        {days.map((day) => (
+                            <td key={day} id={day}>
+                                {day}
+                            </td>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>{createTableCells(month, year)}</tbody>
+            </table>
 
 			<div>
 				<button id="prev-year" onClick={prevYear}>
